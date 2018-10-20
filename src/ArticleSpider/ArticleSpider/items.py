@@ -27,9 +27,9 @@ class ArticleItemLoader(ItemLoader):
 
 # 格式化日期
 def date_convert(value):
-    value = value.strip()  # TODO 正则没有办法匹配 \r\n 吗？ 记得查询一下
+    # 正则没有办法匹配 \r\n 吗？ 记得查询一下 设置 re.DOTALL 即可
     regex_str = ".*?([12]{1}[0-9]{3}/[01]{0,1}[0-9]{1}/[0-3]{0,1}[0-9]{1}).*"
-    match_obj = re.match(regex_str, value)
+    match_obj = re.match(regex_str, value, re.DOTALL)
     if match_obj:
         try:
             create_date = datetime.datetime.strptime(match_obj.group(1), "%Y/%m/%d").date()
